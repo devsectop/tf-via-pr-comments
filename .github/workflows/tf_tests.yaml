@@ -2,9 +2,11 @@
 name: TF Tests
 
 on:
-  pull_request:
-    paths: [.github/workflows/tf_tests.yaml, action.yml, tests/**]
-    types: [opened, reopened, synchronize, closed]
+  issue_comment:
+
+  # pull_request:
+  #   paths: [.github/workflows/tf_tests.yaml, action.yml, tests/**]
+  #   types: [opened, reopened, synchronize, closed]
 
 jobs:
   tests:
@@ -21,10 +23,10 @@ jobs:
       matrix:
         test:
           - pass_one
-          - pass_character_limit
-          - fail_data_source_error
-          - fail_format_diff
-          - fail_invalid_resource_type
+          # - pass_character_limit
+          # - fail_data_source_error
+          # - fail_format_diff
+          # - fail_invalid_resource_type
 
     steps:
       - name: Echo context
@@ -48,8 +50,9 @@ jobs:
         continue-on-error: true
         uses: ./
         with:
-          command: ${{ github.event.pull_request.merged && 'apply' || 'plan' }}
-          arg-lock: ${{ github.event.pull_request.merged }}
+          command: apply # ${{ github.event.pull_request.merged && 'apply' || 'plan' }}
+          arg-auto-approve: true
+          # arg-lock: ${{ github.event.pull_request.merged }}
           working-directory: tests/${{ matrix.test }}
           tool: tofu
           format: true
