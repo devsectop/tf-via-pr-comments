@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-24.04
 
     permissions:
-      actions: read # Required to download repository artifact.
+      actions: read # Required to identify workflow run.
       checks: write # Required to add status summary.
       contents: read # Required to checkout repository.
-      pull-requests: write # Required to add PR comment and label.
+      pull-requests: write # Required to add comment and label.
 
     strategy:
       fail-fast: false
