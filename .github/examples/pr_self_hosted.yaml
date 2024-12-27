@@ -1,12 +1,14 @@
 ---
-name: Trigger on pull_request (plan or apply) event with Terraform and OpenTofu on self-hosted runner.
+name: Trigger on pull_request (plan or apply) and labeled (manual) events on self-hosted Terraform and OpenTofu.
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, closed]
+    types: [opened, synchronize, closed, labeled]
 
 jobs:
   tf:
+    # Run on usual PR events and when labeled with 'tf-plan'.
+    if: ${{ contains(fromJSON('["opened", "synchronize", "closed"]'), github.event.action) || contains(github.event.pull_request.labels.*.name, 'tf-plan') }}
     runs-on: self-hosted
 
     permissions:
@@ -38,3 +40,10 @@ jobs:
           working-directory: path/to/directory
           plan-encrypt: ${{ secrets.PASSPHRASE }}
           tool: ${{ env.tool }}
+
+      - name: Remove label
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'tf-plan') }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+        run: gh api /repos/{owner}/{repo}/issues/${PR_NUMBER}/labels/tf-plan --method DELETE

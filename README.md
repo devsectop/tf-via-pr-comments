@@ -116,7 +116,7 @@ The following workflows showcase common use cases, while a comprehensive list of
     </td>
     <td>
       </br>
-      <a href="/.github/examples/pr_self_hosted.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan or apply) event with Terraform and OpenTofu on <strong>self-hosted</strong> runner.
+      <a href="/.github/examples/pr_self_hosted.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan or apply) and <code>labeled</code> <strong>(manual) events on self-hosted</strong> Terraform and OpenTofu.
       </br></br>
     </td>
   </tr>
