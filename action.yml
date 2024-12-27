@@ -84,7 +84,7 @@ runs:
           pr_number=$(echo "${GITHUB_REF_NAME}" | sed -n 's/.*pr-\([0-9]*\)-.*/\1/p')
         else
           # Get the PR number from the event payload or fallback on 0.
-          pr_number=${{ github.event.number || 0 }}
+          pr_number=${{ github.event.number || github.event.issue.number || 0 }}
         fi
         echo "pr=$pr_number" >> "$GITHUB_OUTPUT"
 
