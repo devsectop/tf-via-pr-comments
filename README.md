@@ -286,3 +286,4 @@ View [all notable changes](https://github.com/op5dev/tf-via-pr/releases "Release
 
 - [@3ware](https://github.com/3ware)
 - [@ego93](https://github.com/ego93)
+- [@StoatLabs](https://github.com/StoatLabs)
