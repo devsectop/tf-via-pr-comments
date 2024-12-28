@@ -283,3 +283,5 @@ View [all notable changes](https://github.com/op5dev/tf-via-pr/releases "Release
 - Copyright 2016-2024 [Rishav Dhar](https://github.com/rdhar "Rishav Dhar's GitHub profile.") — All wrongs reserved.
 
 ### Sponsors
+
+- [@ego93](https://github.com/ego93)
