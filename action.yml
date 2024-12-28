@@ -89,7 +89,7 @@ runs:
         echo "pr=$pr_number" >> "$GITHUB_OUTPUT"
 
         # Generate identifier for the workflow run using MD5 hashing algorithm for concise and unique naming.
-        identifier="${{ steps.arg.outputs.arg-chdir }}${{ steps.arg.outputs.arg-backend-config }}${{ steps.arg.outputs.arg-var-file }}${{ steps.arg.outputs.arg-var }}${{ inputs.arg-workspace }}${{ steps.arg.outputs.arg-destroy }}"
+        identifier="${{ steps.arg.outputs.arg-chdir }}${{ inputs.arg-workspace }}${{ steps.arg.outputs.arg-backend-config }}${{ steps.arg.outputs.arg-var-file }}${{ steps.arg.outputs.arg-var }}${{ steps.arg.outputs.arg-replace }}${{ steps.arg.outputs.arg-target }}${{ steps.arg.outputs.arg-destroy }}"
         identifier=$(echo -n "$identifier" | md5sum | awk '{print $1}')
         echo "name=${{ inputs.tool }}-${pr_number}-${identifier}.tfplan" >> "$GITHUB_OUTPUT"
 
