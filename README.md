@@ -149,8 +149,8 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 
 | Type     | Name                | Description                                                                                                                                  |
 | -------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| CLI      | `command`           | Command to run between: `plan` or `apply`. Optionally `init` for checks and outputs only.</br>Example: `plan`                                |
 | CLI      | `working-directory` | Specify the working directory of TF code, alias of `arg-chdir`.</br>Example: `path/to/directory`                                             |
+| CLI      | `command`           | Command to run between: `plan` or `apply`. Optionally `init` for checks and outputs only.</br>Example: `plan`                                |
 | CLI      | `tool`              | Provisioning tool to use between: `terraform` or `tofu`.</br>Default: `terraform`                                                            |
 | Check    | `format`            | Check format of TF code.</br>Default: `false`                                                                                                |
 | Check    | `validate`          | Check validation of TF code.</br>Default: `false`                                                                                            |
@@ -165,9 +165,11 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 | UI       | `show-args`         | Show comma-separated list of CLI arguments in the command input.</br>Default: `workspace`                                                    |
 </br>
 
-The default behavior of `comment-method` is to update the existing PR comment with the latest plan/apply output, making it easy to track changes over time through the comment's revision history.</br>
 
-[![PR comment revision history comparing plan and apply outputs.](/.github/assets/revisions.png)](https://raw.githubusercontent.com/op5dev/tf-via-pr/refs/heads/main/.github/assets/revisions.png "View full-size image.")
+
+- The default behavior of `comment-method` is to update the existing PR comment with the latest plan/apply output, making it easy to track changes over time through the comment's revision history.</br>
+
+  [![PR comment revision history comparing plan and apply outputs.](/.github/assets/revisions.png)](https://raw.githubusercontent.com/op5dev/tf-via-pr/refs/heads/main/.github/assets/revisions.png "View full-size image.")
 </br></br>
 
 ### Inputs - Arguments
