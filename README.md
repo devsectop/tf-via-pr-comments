@@ -167,13 +167,12 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 </br>
 
 
-- <sup>1</sup> Both `command: plan` and `command: apply` include: `init`, `fmt` (with `format: true`), `validate` (with `validate: true`), and `workspace` (with `arg-workspace`) commands rolled into it automatically.</br>
-  To separately run checks and/or generate outputs only, `command: init` can be used.</br>
-- <sup>2</sup> For `merge_group` event trigger, `plan-parity: true` inputs helps to prevent stale apply within the merge queue of workflow runs.</br>
-- <sup>3</sup> The secret string input for `plan-encrypt` can be of any length, as long as it's consistent between encryption (plan) and decryption (apply).</br>
-- <sup>4</sup> The `on-change` option is true when the exit code of the last TF command is non-zero.</br>
-- <sup>5</sup> The default behavior of `comment-method` is to update the existing PR comment with the latest plan/apply output, making it easy to track changes over time through the comment's revision history.</br>
-
+1. Both `command: plan` and `command: apply` include: `init`, `fmt` (with `format: true`), `validate` (with `validate: true`), and `workspace` (with `arg-workspace`) commands rolled into it automatically.</br>
+  To separately run checks and/or generate outputs only, `command: init` can be used.</br></br>
+1. For `merge_group` event trigger, `plan-parity: true` inputs helps to prevent stale apply within the merge queue of workflow runs.</br></br>
+1. The secret string input for `plan-encrypt` can be of any length, as long as it's consistent between encryption (plan) and decryption (apply).</br></br>
+1. The `on-change` option is true when the exit code of the last TF command is non-zero.</br></br>
+1. The default behavior of `comment-method` is to update the existing PR comment with the latest plan/apply output, making it easy to track changes over time through the comment's revision history.</br></br>
   [![PR comment revision history comparing plan and apply outputs.](/.github/assets/revisions.png)](https://raw.githubusercontent.com/op5dev/tf-via-pr/refs/heads/main/.github/assets/revisions.png "View full-size image.")
 </br></br>
 
@@ -185,6 +184,7 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 > - For repeated arguments like `arg-var`, `arg-backend-config`, `arg-replace` and `arg-target`, use commas to separate multiple values (e.g., `arg-var: key1=value1,key2=value2`).
 
 <details><summary>Toggle view of all available CLI arguments.</summary>
+</br>
 
 | Name                      | CLI Argument                             |
 | ------------------------- | ---------------------------------------- |
@@ -284,4 +284,5 @@ View [all notable changes](https://github.com/op5dev/tf-via-pr/releases "Release
 
 ### Sponsors
 
+- [@3ware](https://github.com/3ware)
 - [@ego93](https://github.com/ego93)
