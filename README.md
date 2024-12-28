@@ -87,7 +87,7 @@ The following workflows showcase common use cases, while a comprehensive list of
   <tr>
     <td>
       </br>
-      <a href="/.github/examples/pr_push_auth.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, AWS <strong>authentication</strong> and <strong>caching</strong>.
+      <a href="/.github/examples/pr_push_auth.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, AWS <strong>authentication</strong> and <strong>cache</strong>.
       </br></br>
     </td>
     <td>
@@ -116,7 +116,7 @@ The following workflows showcase common use cases, while a comprehensive list of
     </td>
     <td>
       </br>
-      <a href="/.github/examples/pr_self_hosted.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan or apply) and <code>labeled</code> <strong>(manual) events on self-hosted</strong> Terraform/OpenTofu.
+      <a href="/.github/examples/pr_self_hosted.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan or apply) and <code>labeled</code> <strong>manual</strong> events on <strong>self-hosted</strong> Terraform/OpenTofu.
       </br></br>
     </td>
   </tr>
