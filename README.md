@@ -63,13 +63,12 @@ jobs:
       - uses: actions/checkout@4
       - uses: hashicorp/setup-terraform@v3
       - uses: op5dev/tf-via-pr@v13
-        with:
-          # Run plan by default, or apply with lock on merge.
+        with: # Run plan by default, or apply with lock on merge.
+          working-directory: path/to/directory
           command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
           arg-lock: ${{ github.event_name == 'push' }}
           arg-var-file: env/dev.tfvars
           arg-workspace: dev-use1
-          working-directory: path/to/directory
           plan-encrypt: ${{ secrets.PASSPHRASE }}
 ```
 
@@ -87,7 +86,7 @@ The following workflows showcase common use cases, while a comprehensive list of
   <tr>
     <td>
       </br>
-      <a href="/.github/examples/pr_push_auth.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, <strong>authentication</strong> and <strong>caching</strong>.
+      <a href="/.github/examples/pr_push_auth.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, <strong>authentication</strong> and <strong>cache</strong>.
       </br></br>
     </td>
     <td>
