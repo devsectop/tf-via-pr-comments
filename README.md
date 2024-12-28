@@ -185,6 +185,7 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 
 <details><summary>Toggle view of all available CLI arguments.</summary>
 
+</br>
 | Name                      | CLI Argument                             |
 | ------------------------- | ---------------------------------------- |
 | `arg-auto-approve`        | `-auto-approve`                          |
