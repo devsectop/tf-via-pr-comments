@@ -360,7 +360,7 @@ runs:
         <details><summary>${summary}</br>
 
         <!-- placeholder-4 -->
-        ###### By ${handle}${GITHUB_TRIGGERING_ACTOR} at ${{ github.event.pull_request.updated_at || github.event.head_commit.timestamp || github.event.merge_group.head_commit.timestamp }} [(view log)](${run_url}).
+        ###### By ${handle}${GITHUB_TRIGGERING_ACTOR} at ${{ github.event.pull_request.updated_at || github.event.comment.created_at || github.event.head_commit.timestamp || github.event.merge_group.head_commit.timestamp }} [(view log)](${run_url}).
         </summary>
 
         \`\`\`${syntax}
