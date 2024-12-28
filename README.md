@@ -184,8 +184,8 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 > - For repeated arguments like `arg-var`, `arg-backend-config`, `arg-replace` and `arg-target`, use commas to separate multiple values (e.g., `arg-var: key1=value1,key2=value2`).
 
 <details><summary>Toggle view of all available CLI arguments.</summary>
-
 </br>
+
 | Name                      | CLI Argument                             |
 | ------------------------- | ---------------------------------------- |
 | `arg-auto-approve`        | `-auto-approve`                          |
