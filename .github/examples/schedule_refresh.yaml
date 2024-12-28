@@ -27,10 +27,10 @@ jobs:
         id: provision
         uses: op5dev/tf-via-pr@v13
         with:
+          working-directory: path/to/directory
           command: plan
           arg-lock: false
           arg-refresh-only: true
-          working-directory: path/to/directory
           plan-encrypt: ${{ secrets.PASSPHRASE }}
 
       - name: Open issue on drift

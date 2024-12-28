@@ -28,9 +28,9 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         uses: op5dev/tf-via-pr@v13
         with:
+          working-directory: path/to/directory
           command: init
           arg-lock: false
-          working-directory: path/to/directory
           format: true
           validate: true
 
@@ -78,6 +78,6 @@ jobs:
       - name: Provision TF
         uses: op5dev/tf-via-pr@v13
         with:
+          working-directory: path/to/directory
           command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
           arg-lock: ${{ github.event_name == 'push' }}
-          working-directory: path/to/directory

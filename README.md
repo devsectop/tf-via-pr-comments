@@ -147,22 +147,22 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 
 ### Inputs - Configuration
 
-| Type     | Name                | Description                                                                                                                          |
-| -------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| CLI      | `command`           | Command to run between: `plan` or `apply`. Optionally `init` for checks and outputs only.</br>Example: `plan`                        |
-| CLI      | `working-directory` | Specify the working directory of TF code, alias of `arg-chdir`.</br>Example: `path/to/directory`                                     |
-| CLI      | `tool`              | Provisioning tool to use between: `terraform` or `tofu`.</br>Default: `terraform`                                                    |
-| Check    | `format`            | Check format of TF code.</br>Default: `false`                                                                                        |
-| Check    | `validate`          | Check validation of TF code.</br>Default: `false`                                                                                    |
-| Check    | `plan-parity`       | Replace the plan file if it matches a newly-generated one to prevent stale apply (very rarely needed nowadays).</br>Default: `false` |
-| Security | `plan-encrypt`      | Encrypt plan file artifact with the given input.</br>Example: `${{ secrets.PASSPHRASE }}`                                            |
-| Security | `token`             | Specify a GitHub token.</br>Default: `${{ github.token }}`                                                                           |
-| UI       | `label-pr`          | Add a PR label with the command input.</br>Default: `true`                                                                           |
-| UI       | `comment-pr`        | Add a PR comment: `always`, `on-change`, or `never`.</br>Default: `always`                                                           |
-| UI       | `comment-method`    | PR comment by: `update` existing comment or `recreate` and delete previous one.</br>Default: `update`                                |
-| UI       | `tag-actor`         | Tag the workflow triggering actor: `always`, `on-change`, or `never`.</br>Default: `always`                                          |
-| UI       | `hide-args`         | Hide comma-separated list of CLI arguments from the command input.</br>Default: `detailed-exitcode,lock,out,var=`                    |
-| UI       | `show-args`         | Show comma-separated list of CLI arguments in the command input.</br>Default: `workspace`                                            |
+| Type     | Name                | Description                                                                                                                                  |
+| -------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| CLI      | `command`           | Command to run between: `plan` or `apply`. Optionally `init` for checks and outputs only.</br>Example: `plan`                                |
+| CLI      | `working-directory` | Specify the working directory of TF code, alias of `arg-chdir`.</br>Example: `path/to/directory`                                             |
+| CLI      | `tool`              | Provisioning tool to use between: `terraform` or `tofu`.</br>Default: `terraform`                                                            |
+| Check    | `format`            | Check format of TF code.</br>Default: `false`                                                                                                |
+| Check    | `validate`          | Check validation of TF code.</br>Default: `false`                                                                                            |
+| Check    | `plan-parity`       | Replace the plan file if it matches a newly-generated one to prevent stale apply (only useful for `merge_group` queue).</br>Default: `false` |
+| Security | `plan-encrypt`      | Encrypt plan file artifact with the given input.</br>Example: `${{ secrets.PASSPHRASE }}`                                                    |
+| Security | `token`             | Specify a GitHub token.</br>Default: `${{ github.token }}`                                                                                   |
+| UI       | `label-pr`          | Add a PR label with the command input.</br>Default: `true`                                                                                   |
+| UI       | `comment-pr`        | Add a PR comment: `always`, `on-change`, or `never`.</br>Default: `always`                                                                   |
+| UI       | `comment-method`    | PR comment by: `update` existing comment or `recreate` and delete previous one.</br>Default: `update`                                        |
+| UI       | `tag-actor`         | Tag the workflow triggering actor: `always`, `on-change`, or `never`.</br>Default: `always`                                                  |
+| UI       | `hide-args`         | Hide comma-separated list of CLI arguments from the command input.</br>Default: `detailed-exitcode,lock,out,var=`                            |
+| UI       | `show-args`         | Show comma-separated list of CLI arguments in the command input.</br>Default: `workspace`                                                    |
 </br>
 
 The default behavior of `comment-method` is to update the existing PR comment with the latest plan/apply output, making it easy to track changes over time through the comment's revision history.</br>
