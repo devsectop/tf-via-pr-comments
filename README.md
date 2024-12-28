@@ -63,7 +63,8 @@ jobs:
       - uses: actions/checkout@4
       - uses: hashicorp/setup-terraform@v3
       - uses: op5dev/tf-via-pr@v13
-        with: # Run plan by default, or apply with lock on merge.
+        with:
+          # Run plan by default, or apply with lock on merge.
           working-directory: path/to/directory
           command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
           arg-lock: ${{ github.event_name == 'push' }}
@@ -283,5 +284,5 @@ View [all notable changes](https://github.com/op5dev/tf-via-pr/releases "Release
 
 ### Sponsors
 
-- @3ware
-- @StoatLabs
+- [@3ware](https://github.com/3ware)
+- [@StoatLabs](https://github.com/StoatLabs)
