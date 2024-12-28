@@ -104,7 +104,7 @@ The following workflows showcase common use cases, while a comprehensive list of
     </td>
     <td>
       </br>
-      <a href="/.github/examples/schedule_refresh.yaml"><strong>Run on</strong></a> <code>schedule</code> (cron) event with <code>-refresh-only</code> to open an issue on <strong>configuration drift</strong>.
+      <a href="/.github/examples/schedule_refresh.yaml"><strong>Run on</strong></a> <code>schedule</code> <strong>cron</strong> event with <code>-refresh-only</code> to open an issue on <strong>configuration drift</strong>.
       </br></br>
     </td>
   </tr>
@@ -131,7 +131,7 @@ In order to decrypt the plan file locally, use the following commands after down
 
 ```fish
 unzip <tf.plan>
-openssl -d enc -aes-256-ctr -pbkdf2 -salt \
+openssl enc -d -aes-256-ctr -pbkdf2 -salt \
   -in <tf.plan> \
   -out tf.plan.decrypted \
   -pass pass:"<passphrase>"
