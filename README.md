@@ -87,36 +87,36 @@ The following workflows showcase common use cases, while a comprehensive list of
   <tr>
     <td>
       </br>
-      <a href="/.github/examples/pr_push_auth.yaml"><strong>RUN on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, AWS <strong>authentication</strong> and <strong>caching</strong>.
+      <a href="/.github/examples/pr_push_auth.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, AWS <strong>authentication</strong> and <strong>caching</strong>.
       </br></br>
     </td>
     <td>
       </br>
-      <a href="/.github/examples/pr_merge_matrix.yaml"><strong>RUN on</strong></a> <code>pull_request</code> (plan) and <code>merge_group</code> (apply) events with OpenTofu in <strong>matrix</strong> strategy.
-      </br></br>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      </br>
-      <a href="/.github/examples/pr_push_stages.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with <strong>conditional job stages</strong> based on plan file.
-      </br></br>
-    </td>
-    <td>
-      </br>
-      <a href="/.github/examples/schedule_refresh.yaml"><strong>RUN on</strong></a> <code>schedule</code> (cron) event with <code>-refresh-only</code> to open an issue on <strong>configuration drift</strong>.
+      <a href="/.github/examples/pr_merge_matrix.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>merge_group</code> (apply) events with OpenTofu in <strong>matrix</strong> strategy.
       </br></br>
     </td>
   </tr>
   <tr>
     <td>
       </br>
-      <a href="/.github/examples/pr_push_lint.yaml"><strong>RUN on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with <strong>fmt/validate checks</strong> and TFLint.
+      <a href="/.github/examples/pr_push_stages.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with <strong>conditional jobs</strong> based on plan file.
       </br></br>
     </td>
     <td>
       </br>
-      <a href="/.github/examples/pr_self_hosted.yaml"><strong>RUN on</strong></a> <code>pull_request</code> (plan or apply) and <code>labeled</code> <strong>(manual) events on self-hosted</strong> Terraform/OpenTofu.
+      <a href="/.github/examples/schedule_refresh.yaml"><strong>Run on</strong></a> <code>schedule</code> (cron) event with <code>-refresh-only</code> to open an issue on <strong>configuration drift</strong>.
+      </br></br>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      </br>
+      <a href="/.github/examples/pr_push_lint.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with <strong>fmt/validate checks</strong> and TFLint.
+      </br></br>
+    </td>
+    <td>
+      </br>
+      <a href="/.github/examples/pr_self_hosted.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan or apply) and <code>labeled</code> <strong>(manual) events on self-hosted</strong> Terraform/OpenTofu.
       </br></br>
     </td>
   </tr>
