@@ -131,7 +131,10 @@ In order to decrypt the plan file locally, use the following commands after down
 
 ```fish
 unzip <tf.plan>
-openssl enc -aes-256-ctr -pbkdf2 -salt -in <tf.plan> -out tf.plan.decrypted -pass pass:"<passphrase>" -d
+openssl -d enc -aes-256-ctr -pbkdf2 -salt \
+  -in <tf.plan> \
+  -out tf.plan.decrypted \
+  -pass pass:"<passphrase>"
 <tf.tool> show tf.plan.decrypted
 ```
 </br>
