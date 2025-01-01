@@ -185,6 +185,17 @@ runs:
         unzip "${{ steps.identifier.outputs.name }}.zip" -d "${{ inputs.arg-chdir || inputs.working-directory }}"
         rm --force "${{ steps.identifier.outputs.name }}.zip"
 
+        # Download additional artifacts.
+        if [[ -n "${{ inputs.additional-artifacts }}" ]]; then
+          IFS=',' read -ra artifacts <<< "${{ inputs.additional-artifacts }}"
+          for artifact in "${artifacts[@]}"; do
+            artifact_id=$(gh api /repos/{owner}/{repo}/actions/artifacts --header "$GH_API" --method GET --field "name=$(basename "$artifact")" --jq '.artifacts[0].id')
+            gh api /repos/{owner}/{repo}/actions/artifacts/${artifact_id}/zip --header "$GH_API" --method GET > "$(basename "$artifact").zip"
+            unzip "$(basename "$artifact").zip" -d "$(dirname "$artifact")"
+            rm --force "$(basename "$artifact").zip"
+          done
+        fi
+
     - if: ${{ inputs.plan-encrypt != '' && steps.download.outcome == 'success' }}
       env:
         pass: ${{ inputs.plan-encrypt }}
@@ -226,6 +237,14 @@ runs:
         name: ${{ steps.identifier.outputs.name }}
         path: ${{ format('{0}{1}tfplan', inputs.arg-chdir || inputs.working-directory, (inputs.arg-chdir || inputs.working-directory) && '/' || '') }}
         overwrite: true
+
+        # Upload additional artifacts.
+        if [[ -n "${{ inputs.additional-artifacts }}" ]]; then
+          IFS=',' read -ra artifacts <<< "${{ inputs.additional-artifacts }}"
+          for artifact in "${artifacts[@]}"; do
+            gh api /repos/{owner}/{repo}/actions/artifacts --header "$GH_API" --method POST --field "name=$(basename "$artifact")" --field "path=$artifact"
+          done
+        fi
 
     - if: ${{ inputs.plan-parity == 'true' && steps.download.outcome == 'success' }}
       shell: bash
@@ -498,6 +517,10 @@ inputs:
   working-directory:
     default: ""
     description: "Specify the working directory of TF code, alias of `arg-chdir` (e.g., `stacks/dev`)."
+    required: false
+  additional-artifacts:
+    default: ""
+    description: "Comma-separated list of paths to additional files and/or directories to be stored with upload-artifact action (e.g., `path/to/file1,path/to/dir1`)."
     required: false
 
   # CLI arguments.

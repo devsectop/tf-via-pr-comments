@@ -71,6 +71,7 @@ jobs:
           arg-var-file: env/dev.tfvars
           arg-workspace: dev-use1
           plan-encrypt: ${{ secrets.PASSPHRASE }}
+          additional-artifacts: path/to/file1,path/to/dir1
 ```
 
 > [!TIP]
@@ -164,6 +165,8 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 | UI       | `tag-actor`         | Tag the workflow triggering actor: `always`, `on-change`, or `never`.<sup>4</sup></br>Default: `always`           |
 | UI       | `hide-args`         | Hide comma-separated list of CLI arguments from the command input.</br>Default: `detailed-exitcode,lock,out,var=` |
 | UI       | `show-args`         | Show comma-separated list of CLI arguments in the command input.</br>Default: `workspace`                         |
+| CLI      | `additional-artifacts` | Comma-separated list of paths to additional files and/or directories to be stored with upload-artifact action.</br>Example: `path/to/file1,path/to/dir1` |
+
 </br>
 
 
