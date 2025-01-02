@@ -9,7 +9,8 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-24.04
-    name: ${{ matrix.a }}, ${{ matrix.b }}, ${{ matrix.c }}
+    name: terraform (${{ matrix.aws_region }} ${{ matrix.environment }})
+    # name: ${{ matrix.a }}, ${{ matrix.b }}, ${{ matrix.c }}
 
     permissions:
       actions: read # Required to identify workflow run.
@@ -29,18 +30,25 @@ jobs:
         #   - fail_data_source_error
         #   - fail_format_diff
         #   - fail_invalid_resource_type
-        a:
-          - 1
-          - 2
-          - 3
-        b:
-          - A
-          -
-          - C
-        c:
-          - X
-          - Y
-          - Z
+        # a:
+        #   - 1
+        #   - 2
+        #   - 3
+        # b:
+        #   - A
+        #   -
+        #   - C
+        # c:
+        #   - X
+        #   - Y
+        #   - Z
+        include:
+          - aws_region: us-east-1
+            aws_account_id: 11111111111
+            environment: development
+          - aws_region: us-east-1
+            aws_account_id: 22222222
+            environment: staging
 
     steps:
       - name: Echo context
