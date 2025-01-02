@@ -9,7 +9,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-24.04
-    name: ${{ matrix.a }} ${{ matrix.b }}
+    name: ${{ matrix.a }}, ${{ matrix.b }}, ${{ matrix.c }}
 
     permissions:
       actions: read # Required to identify workflow run.
