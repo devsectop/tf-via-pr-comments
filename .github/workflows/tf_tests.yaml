@@ -9,7 +9,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-24.04
-    # name: terraform (${{ matrix.aws_region }} ${{ matrix.environment }})
+    name: terraform (${{ matrix.aws_region }}, ${{ matrix.aws_account_id }}, ${{ matrix.environment }})
     # name: ${{ matrix.a }}, ${{ matrix.b }}, ${{ matrix.c }}
 
     permissions:
