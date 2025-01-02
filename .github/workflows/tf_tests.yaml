@@ -44,7 +44,7 @@ jobs:
         #   - Z
         include:
           - aws_region: us-east-1
-            aws_account_id: 11111111111
+            aws_account_id:
             environment: development
           - aws_region: us-east-1
             aws_account_id: 22222222
