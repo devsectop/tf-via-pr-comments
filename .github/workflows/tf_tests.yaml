@@ -44,11 +44,30 @@ jobs:
     steps:
       - name: Echo context
         env:
-          GH_JSON: ${{ toJson(github) }}
         run: |
           echo "GITHUB_JOB" "$GITHUB_JOB"
           echo "GH_JSON" "$GH_JSON"
-          echo "github.jobs[github.job].name" "${{ github.jobs[github.job].name }}"
+
+      - id: identifier
+        env:
+          GH_JSON: ${{ toJson(github) }}
+          GH_MATRIX: ${{ toJSON(matrix) }}
+        shell: bash
+        run: |
+          # List jobs from the current workflow run.
+          workflow_run=$(gh api /repos/{owner}/{repo}/actions/runs/${GITHUB_RUN_ID}/attempts/${GITHUB_RUN_ATTEMPT}/jobs --header "$GH_API" --method GET --field per_page=100)
+
+          # Get the current job ID from the workflow run using different query methods for matrix and regular jobs.
+          if [[ "$GH_MATRIX" == "null" ]]; then
+            # For regular jobs, get the ID of the job with the same name as $GITHUB_JOB (lowercase and '-' or '_' replaced with ' ').
+            # Otherwise, get the ID of the first job in the list as a fallback.
+            job_id=$(echo "$workflow_run" | jq --raw-output '(.jobs[] | select((.name | ascii_downcase | gsub("-|_"; " ")) == (env.GITHUB_JOB | ascii_downcase | gsub("-|_"; " "))) | .id) // .jobs[0].id' | tail -n 1)
+          else
+            # For matrix jobs, join the matrix values with comma separator into a single string and get the ID of the job which contains it.
+            matrix=$(echo "$GH_MATRIX" | jq --raw-output 'to_entries | map(.value) | join(", ")')
+            job_id=$(echo "$workflow_run" | jq --raw-output --arg matrix "$matrix" '.jobs[] | select(.name | contains($matrix)) | .id' | tail -n 1)
+          fi
+          echo "GH_JOB" "$job_id"
 
       # - name: Checkout repository
       #   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
