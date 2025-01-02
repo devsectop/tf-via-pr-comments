@@ -9,6 +9,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-24.04
+    name: ${{ matrix.a }} ${{ matrix.b }} ${{ matrix.c }}
 
     permissions:
       actions: read # Required to identify workflow run.
@@ -28,15 +29,15 @@ jobs:
         #   - fail_data_source_error
         #   - fail_format_diff
         #   - fail_invalid_resource_type
-        1:
+        a:
           - 1
           - 2
           - 3
-        2:
+        b:
           - A
           - B
           - C
-        3:
+        c:
           - X
           - Y
           - Z
