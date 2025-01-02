@@ -44,15 +44,13 @@ jobs:
     steps:
       - name: Echo context
         env:
+          GH_JSON: ${{ toJson(github) }}
         run: |
           echo "GITHUB_JOB" "$GITHUB_JOB"
           echo "GH_JSON" "$GH_JSON"
 
-      - id: identifier
-        env:
-          GH_JSON: ${{ toJson(github) }}
+      - env:
           GH_MATRIX: ${{ toJSON(matrix) }}
-        shell: bash
         run: |
           # List jobs from the current workflow run.
           workflow_run=$(gh api /repos/{owner}/{repo}/actions/runs/${GITHUB_RUN_ID}/attempts/${GITHUB_RUN_ATTEMPT}/jobs --header "$GH_API" --method GET --field per_page=100)
