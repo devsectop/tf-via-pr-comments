@@ -19,18 +19,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tool:
-          - tofu
-          - terraform
-        test:
-          - pass_one
-          - pass_character_limit
-          - fail_data_source_error
-          - fail_format_diff
-          - fail_invalid_resource_type
-        tent:
+        # tool:
+        #   - tofu
+        #   - terraform
+        # test:
+        #   - pass_one
+        #   - pass_character_limit
+        #   - fail_data_source_error
+        #   - fail_format_diff
+        #   - fail_invalid_resource_type
+        1:
           - 1
           - 2
+          - 3
+        2:
+          - A
+          - B
+          - C
+        3:
+          - X
+          - Y
+          - Z
 
     steps:
       - name: Echo context
