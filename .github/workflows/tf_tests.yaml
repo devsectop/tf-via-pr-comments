@@ -19,6 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        tool:
+          - tofu
+          - terraform
         test:
           - pass_one
           - pass_character_limit
@@ -45,13 +48,14 @@ jobs:
 
       - name: Provision TF
         id: tf
-        continue-on-error: true
+        # continue-on-error: true
         uses: ./
         with:
+          working-directory: tests/${{ matrix.test }}
+          tool: ${{ matrix.tool }}
+          comment-pr: ${{ matrix.tool == 'tofu' && 'always' || 'never' }}
           command: ${{ github.event.pull_request.merged && 'apply' || 'plan' }}
           arg-lock: ${{ github.event.pull_request.merged }}
-          working-directory: tests/${{ matrix.test }}
-          tool: tofu
           format: true
           validate: true
           tag-actor: never
