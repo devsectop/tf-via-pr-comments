@@ -32,12 +32,14 @@
     </td>
   </tr>
 </table>
+
 </br>
 
 ### View: [Usage Examples](#usage-examples) · [In/Output Parameters](#parameters) · [Security](#security) · [Changelog](#changelog) · [License](#license)
 
 [![PR comment of plan output with "Diff of changes" section expanded.](/.github/assets/comment.png)](https://raw.githubusercontent.com/op5dev/tf-via-pr/refs/heads/main/.github/assets/comment.png "View full-size image.")
-</br></br>
+
+</br>
 
 ## Usage Examples
 
@@ -77,6 +79,7 @@ jobs:
 >
 > - All supported arguments (e.g., `-backend-config`, `-destroy`, `-parallelism`, etc.) are [listed below](#inputs---arguments).
 > - Environment variables can be passed in for cloud platform authentication (e.g., [configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials "Configuring AWS credentials for use in GitHub Actions.") for short-lived credentials).
+
 </br>
 
 ### Where to find more examples?
@@ -121,6 +124,7 @@ The following workflows showcase common use cases, while a comprehensive list of
     </td>
   </tr>
 </table>
+
 </br>
 
 ### How does encryption work?
@@ -137,12 +141,14 @@ openssl enc -d -aes-256-ctr -pbkdf2 -salt \
   -pass pass:"<passphrase>"
 <tf.tool> show tf.plan.decrypted
 ```
+
 </br>
 
 For each workflow run, a matrix-friendly job summary with logs is added as a fallback to the PR comment. Below this, you'll find a list of plan file artifacts generated during runtime.</br>
 
 [![Workflow job summary with plan file artifact.](/.github/assets/workflow.png)](https://raw.githubusercontent.com/op5dev/tf-via-pr/refs/heads/main/.github/assets/workflow.png "View full-size image.")
-</br></br>
+
+</br>
 
 ## Parameters
 
@@ -164,8 +170,8 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 | UI       | `tag-actor`         | Tag the workflow triggering actor: `always`, `on-change`, or `never`.<sup>4</sup></br>Default: `always`           |
 | UI       | `hide-args`         | Hide comma-separated list of CLI arguments from the command input.</br>Default: `detailed-exitcode,lock,out,var=` |
 | UI       | `show-args`         | Show comma-separated list of CLI arguments in the command input.</br>Default: `workspace`                         |
-</br>
 
+</br>
 
 1. Both `command: plan` and `command: apply` include: `init`, `fmt` (with `format: true`), `validate` (with `validate: true`), and `workspace` (with `arg-workspace`) commands rolled into it automatically.</br>
   To separately run checks and/or generate outputs only, `command: init` can be used.</br></br>
@@ -174,7 +180,8 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 1. The `on-change` option is true when the exit code of the last TF command is non-zero.</br></br>
 1. The default behavior of `comment-method` is to update the existing PR comment with the latest plan/apply output, making it easy to track changes over time through the comment's revision history.</br></br>
   [![PR comment revision history comparing plan and apply outputs.](/.github/assets/revisions.png)](https://raw.githubusercontent.com/op5dev/tf-via-pr/refs/heads/main/.github/assets/revisions.png "View full-size image.")
-</br></br>
+
+</br>
 
 ### Inputs - Arguments
 
@@ -184,6 +191,7 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 > - For repeated arguments like `arg-var`, `arg-backend-config`, `arg-replace` and `arg-target`, use commas to separate multiple values (e.g., `arg-var: key1=value1,key2=value2`).
 
 <details><summary>Toggle view of all available CLI arguments.</summary>
+
 </br>
 
 | Name                      | CLI Argument                             |
@@ -227,6 +235,7 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 | `arg-workspace`           | `-workspace`                             |
 | `arg-write`               | `-write`                                 |
 </details>
+
 </br>
 
 ### Outputs
@@ -245,6 +254,7 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 | Workflow | `job-id`     | ID of the workflow job.                       |
 | Workflow | `run-url`    | URL of the workflow run.                      |
 | Workflow | `identifier` | Unique name of the workflow run and artifact. |
+
 </br>
 
 ## Security
@@ -254,6 +264,7 @@ View [security policy and reporting instructions](SECURITY.md).
 > [!TIP]
 >
 > Pin your workflow version to a specific release tag or SHA to harden your CI/CD pipeline security against supply chain attacks.
+
 </br>
 
 ## Changelog
@@ -268,12 +279,14 @@ View [all notable changes](https://github.com/op5dev/tf-via-pr/releases "Release
 > - [Raise an issue](https://github.com/op5dev/tf-via-pr/issues "Raise an issue.") to propose changes or report unexpected behavior.
 > - [Open a discussion](https://github.com/op5dev/tf-via-pr/discussions "Open a discussion.") to discuss broader topics or questions.
 > - [Become a stargazer](https://github.com/op5dev/tf-via-pr/stargazers "Become a stargazer.") if you find this project useful.
+
 </br>
 
 ### To-Do
 
 - Handling of inputs which contain space(s) (e.g., `working-directory: path to/directory`).
 - Handling of comma-separated inputs which contain comma(s) (e.g., `arg-var: token=1,2,3`)—use `TF_CLI_ARGS` [workaround](https://developer.hashicorp.com/terraform/cli/config/environment-variables#tf_cli_args-and-tf_cli_args_name).
+
 </br>
 
 ## License
@@ -281,6 +294,7 @@ View [all notable changes](https://github.com/op5dev/tf-via-pr/releases "Release
 - This project is licensed under the permissive [Apache License 2.0](LICENSE "Apache License 2.0.").
 - All works herein are my own, shared of my own volition, and [contributors](https://github.com/op5dev/tf-via-pr/graphs/contributors "Contributors.").
 - Copyright 2016-2024 [Rishav Dhar](https://github.com/rdhar "Rishav Dhar's GitHub profile.") — All wrongs reserved.
+
 </br>
 
 ### Sponsors
