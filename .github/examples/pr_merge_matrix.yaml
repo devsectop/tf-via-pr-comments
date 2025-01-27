@@ -28,6 +28,8 @@ jobs:
 
       - name: Setup TF
         uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_wrapper: false
 
       - name: Provision TF
         uses: op5dev/tf-via-pr@v13

@@ -27,10 +27,14 @@ jobs:
       - name: Setup Terraform
         if: env.tool == 'terraform'
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
 
       - name: Setup OpenTofu
         if: env.tool == 'tofu'
         uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_wrapper: false
 
       - name: Provision TF
         uses: op5dev/tf-via-pr@v13

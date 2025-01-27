@@ -22,6 +22,8 @@ jobs:
 
       - name: Setup TF
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
 
       - name: Plan TF
         id: provision

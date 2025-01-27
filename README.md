@@ -79,6 +79,7 @@ jobs:
 >
 > - All supported arguments (e.g., `-backend-config`, `-destroy`, `-parallelism`, etc.) are [listed below](#inputs---arguments).
 > - Environment variables can be passed in for cloud platform authentication (e.g., [configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials "Configuring AWS credentials for use in GitHub Actions.") for short-lived credentials).
+> - Recommend setting `terraform_wrapper`/`tofu_wrapper` to `false` in order to output the [detailed exit code](https://developer.hashicorp.com/terraform/cli/commands/plan#detailed-exitcode) for better error handling.
 
 </br>
 
