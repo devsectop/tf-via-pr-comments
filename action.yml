@@ -27,7 +27,7 @@ runs:
         echo TF_CLI_ARGS=$([[ -n "${{ env.TF_CLI_ARGS }}" ]] && echo "${{ env.TF_CLI_ARGS }} -no-color" || echo "-no-color") >> "$GITHUB_ENV"
         echo TF_IN_AUTOMATION="true" >> "$GITHUB_ENV"
         echo TF_INPUT="false" >> "$GITHUB_ENV"
-        echo $GITHUB_SERVER_URL
+        if [[ "$GITHUB_SERVER_URL" != "https://github.com" ]]; then echo GH_HOST=$(echo "$GITHUB_SERVER_URL" | sed 's/.*:\/\///') >> "$GITHUB_ENV"; fi
 
         # CLI arguments.
         echo arg-auto-approve=$([[ -n "${{ inputs.arg-auto-approve }}" ]] && echo " -auto-approve" || echo "") >> "$GITHUB_OUTPUT"
