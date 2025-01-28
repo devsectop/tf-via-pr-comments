@@ -1,5 +1,5 @@
 ---
-name: Trigger on pull_request (plan or apply) and labeled (manual) events on self-hosted Terraform and OpenTofu.
+name: Trigger on pull_request (plan or apply) and labeled (manual) events on GitHub Enterprise self-hosted runner.
 
 on:
   pull_request:
@@ -45,7 +45,9 @@ jobs:
           plan-encrypt: ${{ secrets.PASSPHRASE }}
           validate: true
           format: true
-          tool: ${{ env.tool }}
+          tool: ${{ secrets.GH_ENTERPRISE_TOKEN }}
+        env:
+          GH_ENTERPRISE_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
 
       - name: Remove label
         if: ${{ contains(github.event.pull_request.labels.*.name, 'tf-plan') }}
