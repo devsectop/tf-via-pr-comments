@@ -8,7 +8,7 @@ on:
 jobs:
   tf:
     # Run on usual PR events and when labeled with 'tf-plan'.
-    if: ${{ contains(fromJSON('["opened", "synchronize", "closed"]'), github.event.action) || contains(github.event.pull_request.labels.*.name, 'tf-plan') }}
+    if: ${{ contains(fromJSON('["opened", "synchronize", "closed"]'), github.event.action) || contains(github.event.pull_request.labels.*.name, 'run-plan') || contains(github.event.pull_request.labels.*.name, 'run-apply') }}
     runs-on: self-hosted
 
     permissions:
@@ -17,24 +17,14 @@ jobs:
       contents: read       # Required to checkout repository.
       pull-requests: write # Required to add comment and label.
 
-    env:
-      tool: terraform
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Terraform
-        if: env.tool == 'terraform'
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-
-      - name: Setup OpenTofu
-        if: env.tool == 'tofu'
-        uses: opentofu/setup-opentofu@v1
-        with:
-          tofu_wrapper: false
 
       - name: Provision TF
         uses: op5dev/tf-via-pr@v13
@@ -45,13 +35,13 @@ jobs:
           plan-encrypt: ${{ secrets.PASSPHRASE }}
           validate: true
           format: true
-          tool: ${{ env.tool }}
         env:
           GH_ENTERPRISE_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
 
       - name: Remove label
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'tf-plan') }}
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'run-plan') || contains(github.event.pull_request.labels.*.name, 'run-apply') }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
-        run: gh api /repos/{owner}/{repo}/issues/${PR_NUMBER}/labels/tf-plan --method DELETE
+          PR_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'run-plan') && 'run-plan' || 'run-apply' }}
+        run: gh api /repos/{owner}/{repo}/issues/${PR_NUMBER}/labels/${PR_LABEL} --method DELETE
