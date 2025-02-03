@@ -45,7 +45,7 @@ jobs:
           plan-encrypt: ${{ secrets.PASSPHRASE }}
           validate: true
           format: true
-          tool: ${{ secrets.GH_ENTERPRISE_TOKEN }}
+          tool: ${{ env.tool }}
         env:
           GH_ENTERPRISE_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
 
