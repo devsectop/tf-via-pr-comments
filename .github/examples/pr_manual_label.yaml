@@ -1,14 +1,26 @@
 ---
-name: Trigger on pull_request (plan or apply) and labeled (manual) events on GitHub Enterprise self-hosted runner.
+name: Trigger on labeled and workflow_dispatch manual events on GitHub Enterprise (GHE) self-hosted runner.
 
 on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: TF command
+        required: true
+        type: choice
+        options:
+          - plan
+          - apply
+        default: plan
+      lock:
+        description: TF lock
+        required: false
+        type: boolean
   pull_request:
-    types: [opened, synchronize, closed, labeled]
+    types: [labeled]
 
 jobs:
   tf:
-    # Run on usual PR events and when labeled with 'tf-plan'.
-    if: ${{ contains(fromJSON('["opened", "synchronize", "closed"]'), github.event.action) || contains(github.event.pull_request.labels.*.name, 'run-plan') || contains(github.event.pull_request.labels.*.name, 'run-apply') }}
     runs-on: self-hosted
 
     permissions:
@@ -26,20 +38,24 @@ jobs:
         with:
           terraform_wrapper: false
 
-      - name: Provision TF
+      - name: Provision TF via pull_request
         uses: op5dev/tf-via-pr@v13
         with:
           working-directory: path/to/directory
-          command: ${{ github.event.pull_request.merged && 'apply' || 'plan' }}
-          arg-lock: ${{ github.event.pull_request.merged }}
+          command: ${{ inputs.command != '' && inputs.command || contains(github.event.pull_request.labels.*.name, 'run-apply') && 'apply' || 'plan' }}
+          arg-lock: ${{ inputs.lock != '' && inputs.lock || contains(github.event.pull_request.labels.*.name, 'run-apply') }}
           plan-encrypt: ${{ secrets.PASSPHRASE }}
-          validate: true
           format: true
+          validate: true
         env:
           GH_ENTERPRISE_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
+          TF_DATA_DIR: path/to/.terraform
+          TF_LOG: ERROR
 
       - name: Remove label
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'run-plan') || contains(github.event.pull_request.labels.*.name, 'run-apply') }}
+        if: |
+          contains(github.event.pull_request.labels.*.name, 'run-plan') ||
+          contains(github.event.pull_request.labels.*.name, 'run-apply')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
