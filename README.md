@@ -70,7 +70,7 @@ jobs:
 
       - uses: op5dev/tf-via-pr@v13
         with:
-          # Run plan by default, or apply on push with lock.
+          # Run plan by default, or apply on push to main.
           working-directory: path/to/directory
           command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
           arg-lock: ${{ github.event_name == 'push' }}
