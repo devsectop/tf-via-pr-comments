@@ -17,7 +17,7 @@ on:
         required: false
         type: boolean
   pull_request:
-    types: [labeled]
+    types: [labeled] # https://docs.github.com/actions/learn-github-actions/events-that-trigger-workflows
 
 jobs:
   tf:
