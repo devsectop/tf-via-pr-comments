@@ -75,7 +75,7 @@ runs:
       shell: bash
       run: |
         # Unique identifier.
-        # Get PR number using different query methods for push, merge_group, and pull_request events.
+        # Get PR number using GitHub API for different event triggers.
         if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
           # List PRs associated with the commit, then get the PR number from the head ref or the latest PR.
           associated_prs=$(gh api /repos/{owner}/{repo}/commits/${GITHUB_SHA}/pulls --header "$GH_API" --method GET --field per_page=100)
