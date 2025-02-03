@@ -63,10 +63,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
       - uses: op5dev/tf-via-pr@v13
         with:
-          # Run plan by default, or apply on merge with lock.
+          # Run plan by default, or apply on push with lock.
           working-directory: path/to/directory
           command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
           arg-lock: ${{ github.event_name == 'push' }}
@@ -120,7 +124,7 @@ The following workflows showcase common use cases, while a comprehensive list of
     </td>
     <td>
       </br>
-      <a href="/.github/examples/pr_self_hosted.yaml"><strong>Run on</strong></a> <code>pull_request</code> (plan or apply) and <code>labeled</code> <strong>manual</strong> events on GitHub Enterprise<strong>self-hosted runner</strong>.
+      <a href="/.github/examples/pr_manual_label.yaml"><strong>Run on</strong></a> <code>labeled</code> and <code>workflow_dispatch</code> <strong>manual</strong> events on GitHub Enterprise (GHE) <strong>self-hosted runner</strong>.
       </br></br>
     </td>
   </tr>
