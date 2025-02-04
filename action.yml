@@ -64,7 +64,7 @@ runs:
         echo arg-target=$([[ -n "${{ inputs.arg-target }}" ]] && echo " -target=${{ inputs.arg-target }}" | sed "s/,/ -target=/g" || echo "") >> "$GITHUB_OUTPUT"
         echo arg-test-directory=$([[ -n "${{ inputs.arg-test-directory }}" ]] && echo " -test-directory=${{ inputs.arg-test-directory }}" || echo "") >> "$GITHUB_OUTPUT"
         echo arg-upgrade=$([[ -n "${{ inputs.arg-upgrade }}" ]] && echo " -upgrade" || echo "") >> "$GITHUB_OUTPUT"
-        echo arg-var-file=$([[ -n "${{ inputs.arg-var-file }}" ]] && echo " -var-file=${{ inputs.arg-var-file }}" || echo "") >> "$GITHUB_OUTPUT"
+        echo arg-var-file=$([[ -n "${{ inputs.arg-var-file }}" ]] && echo " -var-file=${{ inputs.arg-var-file }}" | sed "s/,/ -var-file=/g" || echo "") >> "$GITHUB_OUTPUT"
         echo arg-var=$([[ -n "${{ inputs.arg-var }}" ]] && echo " -var=${{ inputs.arg-var }}" | sed "s/,/ -var=/g" || echo "") >> "$GITHUB_OUTPUT"
         echo arg-write=$([[ -n "${{ inputs.arg-write }}" ]] && echo " -write=${{ inputs.arg-write }}" || echo "") >> "$GITHUB_OUTPUT"
         echo arg-workspace=$([[ -n "${{ inputs.arg-workspace }}" ]] && echo " -workspace=${{ inputs.arg-workspace }}" || echo "") >> "$GITHUB_OUTPUT"
