@@ -206,7 +206,12 @@ runs:
 
         # Diff of changes.
         # Filter lines starting with "  # " and save to tf.diff.txt, then prepend diff-specific symbols based on specific keywords.
-        grep '^  # ' tf.console.txt | sed -e 's/^  # \(.* be created\)/+ \1/' -e 's/^  # \(.* be destroyed\)/- \1/' -e 's/^  # \(.* be updated\|.* be replaced\)/! \1/' -e 's/^  # \(.* be read\)/~ \1/' -e 's/^  # \(.*\)/# \1/' > tf.diff.txt || true
+        grep '^  # ' tf.console.txt | sed \
+          -e 's/^  # \(.* be created\)/+ \1/' \
+          -e 's/^  # \(.* be destroyed\)/- \1/' \
+          -e 's/^  # \(.* be updated\|.* be replaced\)/! \1/' \
+          -e 's/^  # \(.* be read\)/~ \1/' \
+          -e 's/^  # \(.*\)/# \1/' > tf.diff.txt || true
 
     - if: ${{ inputs.plan-encrypt != '' && steps.plan.outcome == 'success' }}
       env:
