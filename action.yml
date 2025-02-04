@@ -390,7 +390,7 @@ runs:
         echo "$body" >> $GITHUB_STEP_SUMMARY
         {
           echo 'comment_body<<EOCOMMENTTFVIAPR'
-          echo "$body"
+          "$body"
           echo EOCOMMENTTFVIAPR
         } >> "$GITHUB_OUTPUT"
 
