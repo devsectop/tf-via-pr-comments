@@ -112,19 +112,19 @@ The following workflows showcase common use cases, while a comprehensive list of
     </td>
     <td>
       </br>
-      <h4><a href="/.github/examples/schedule_refresh.yaml">Run on ⤴</a> <code>schedule</code> cron event with <code>-refresh-only</code> to open an issue on configuration drift.</h4>
+      <h4><a href="/.github/examples/pr_push_stages.yaml">Run on ⤴</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with conditional jobs based on plan file.</h4>
       </br>
     </td>
   </tr>
   <tr>
     <td>
       </br>
-      <h4><a href="/.github/examples/pr_push_stages.yaml">Run on ⤴</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with conditional jobs based on plan file.</h4>
+      <h4><a href="/.github/examples/pr_manual_label.yaml">Run on ⤴</a> <code>labeled</code> and <code>workflow_dispatch</code> manual events on GitHub Enterprise (GHE) self-hosted runner.</h4>
       </br>
     </td>
     <td>
       </br>
-      <h4><a href="/.github/examples/pr_manual_label.yaml">Run on ⤴</a> <code>labeled</code> and <code>workflow_dispatch</code> manual events on GitHub Enterprise (GHE) self-hosted runner.</h4>
+      <h4><a href="/.github/examples/schedule_refresh.yaml">Run on ⤴</a> <code>schedule</code> cron event with <code>-refresh-only</code> to open an issue on configuration drift.</h4>
       </br>
     </td>
   </tr>
