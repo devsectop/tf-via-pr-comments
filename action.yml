@@ -303,10 +303,11 @@ runs:
         # Parse the tf.console.txt file, truncated for character limit.
         console=$(head --bytes=42000 tf.console.txt)
         if [[ ${#console} -eq 42000 ]]; then console="${console}"$'\n…'; fi
-        { echo 'result<<EORESULTTFVIAPR'
-          echo "$console"
-          echo EORESULTTFVIAPR
-        } >> "$GITHUB_OUTPUT"
+        echo "result<<EORESULTTFVIAPR"$'\n'"$console"$'\n'EORESULTTFVIAPR >> "$GITHUB_OUTPUT"
+        # { echo 'result<<EORESULTTFVIAPR'
+        #   echo "$console"
+        #   echo EORESULTTFVIAPR
+        # } >> "$GITHUB_OUTPUT"
 
         # Parse the tf.console.txt file for the summary.
         summary=$(awk '/^(Error:|Plan:|Apply complete!|No changes.|Success)/ {line=$0} END {if (line) print line; else print "View output."}' tf.console.txt)
