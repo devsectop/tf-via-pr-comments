@@ -245,20 +245,21 @@ For each workflow run, a matrix-friendly job summary with logs is added as a fal
 
 ### Outputs
 
-| Type     | Name         | Description                                   |
-| -------- | ------------ | --------------------------------------------- |
-| Artifact | `plan-id`    | ID of the plan file artifact.                 |
-| Artifact | `plan-url`   | URL of the plan file artifact.                |
-| CLI      | `command`    | Input of the last TF command.                 |
-| CLI      | `diff`       | Diff of changes, if present (truncated).      |
-| CLI      | `exitcode`   | Exit code of the last TF command.             |
-| CLI      | `result`     | Result of the last TF command (truncated).    |
-| CLI      | `summary`    | Summary of the last TF command.               |
-| Workflow | `check-id`   | ID of the check run.                          |
-| Workflow | `comment-id` | ID of the PR comment.                         |
-| Workflow | `job-id`     | ID of the workflow job.                       |
-| Workflow | `run-url`    | URL of the workflow run.                      |
-| Workflow | `identifier` | Unique name of the workflow run and artifact. |
+| Type     | Name           | Description                                   |
+| -------- | -------------- | --------------------------------------------- |
+| Artifact | `plan-id`      | ID of the plan file artifact.                 |
+| Artifact | `plan-url`     | URL of the plan file artifact.                |
+| CLI      | `command`      | Input of the last TF command.                 |
+| CLI      | `diff`         | Diff of changes, if present (truncated).      |
+| CLI      | `exitcode`     | Exit code of the last TF command.             |
+| CLI      | `result`       | Result of the last TF command (truncated).    |
+| CLI      | `summary`      | Summary of the last TF command.               |
+| Workflow | `check-id`     | ID of the check run.                          |
+| Workflow | `comment-body` | Body of the PR comment.                       |
+| Workflow | `comment-id`   | ID of the PR comment.                         |
+| Workflow | `job-id`       | ID of the workflow job.                       |
+| Workflow | `run-url`      | URL of the workflow run.                      |
+| Workflow | `identifier`   | Unique name of the workflow run and artifact. |
 
 </br>
 

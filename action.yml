@@ -388,6 +388,10 @@ runs:
 
         # Post output to job summary.
         echo "$body" >> $GITHUB_STEP_SUMMARY
+        { echo 'comment_body<<EOTFVIAPR'
+          echo "$body"
+          echo EOTFVIAPR
+        } >> "$GITHUB_OUTPUT"
 
         # Post PR comment if configured and PR exists.
         if [[ "$create_comment" == "true" && "${{ steps.identifier.outputs.pr }}" != "0" ]]; then
@@ -431,6 +435,9 @@ outputs:
   command:
     description: "Input of the last TF command."
     value: ${{ steps.post.outputs.command }}
+  comment-body:
+    description: "Body of the PR comment."
+    value: ${{ steps.post.outputs.comment_body }}
   comment-id:
     description: "ID of the PR comment."
     value: ${{ steps.post.outputs.comment_id }}
