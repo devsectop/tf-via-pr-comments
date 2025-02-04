@@ -388,11 +388,17 @@ runs:
 
         # Post output to job summary.
         echo "$body" >> $GITHUB_STEP_SUMMARY
-        echo "comment_body<<EOCOMMENTBODYTFVIAPR"$'\n'"$body"$'\n'EOCOMMENTBODYTFVIAPR >> "$GITHUB_OUTPUT"
+        {
+          echo 'comment_body<<EOCOMMENTTFVIAPR'
+          echo "$body"
+          echo EOCOMMENTTFVIAPR
+        } >> "$GITHUB_OUTPUT"
 
-        # { echo 'comment_body<<EOCOMMENTBODYTFVIAPR'
+        # echo "comment_body<<EOCOMMENTTFVIAPR"$'\n'"$body"$'\n'EOCOMMENTTFVIAPR >> "$GITHUB_OUTPUT"
+
+        # { echo 'comment_body<<EOCOMMENTTFVIAPR'
         #   echo "$body"
-        #   echo EOCOMMENTBODYTFVIAPR
+        #   echo EOCOMMENTTFVIAPR
         # } >> "$GITHUB_OUTPUT"
 
         # Post PR comment if configured and PR exists.
