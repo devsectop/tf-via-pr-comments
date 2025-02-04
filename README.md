@@ -95,7 +95,7 @@ The following workflows showcase common use cases, while a comprehensive list of
   <tr>
     <td>
       <h4><a href="/.github/examples/pr_push_auth.yaml">#1 example ⤴</a></h4>
-      <p>Runs on <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, <strong>authentication</strong> and <strong>cache</strong>.</p>
+      <p>Runs on <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, AWS <strong>authentication</strong> and <strong>cache</strong>.</p>
       </br>
     </td>
     <td>
@@ -109,7 +109,7 @@ The following workflows showcase common use cases, while a comprehensive list of
       <h4><a href="/.github/examples/pr_push_lint.yaml">#3 example ⤴</a></h4>
       <p>Runs on <code>pull_request</code> (plan) and <code>push</code> (apply) events with <strong>fmt/validate checks</strong> and TFLint.</p>
       </br>
-    </td>g
+    </td>
     <td>
       <h4><a href="/.github/examples/pr_push_stages.yaml">#4 example ⤴</a></h4>
       <p>Runs on <code>pull_request</code> (plan) and <code>push</code> (apply) events with <strong>conditional jobs</strong> based on plan file.</p>
