@@ -28,6 +28,7 @@ runs:
         echo TF_IN_AUTOMATION="true" >> "$GITHUB_ENV"
         echo TF_INPUT="false" >> "$GITHUB_ENV"
         # if [[ "$GITHUB_SERVER_URL" != "https://github.com" ]]; then echo GH_HOST=$(echo "$GITHUB_SERVER_URL" | sed 's/.*:\/\///') >> "$GITHUB_ENV"; fi
+        echo "GITHUB_SERVER_URL: $GITHUB_SERVER_URL"
 
         # CLI arguments.
         echo arg-auto-approve=$([[ -n "${{ inputs.arg-auto-approve }}" ]] && echo " -auto-approve" || echo "") >> "$GITHUB_OUTPUT"
