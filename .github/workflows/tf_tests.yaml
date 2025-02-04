@@ -72,7 +72,7 @@ jobs:
         run: |
           echo "check-id: ${{ steps.tf.outputs.check-id }}"
           echo "command: ${{ steps.tf.outputs.command }}"
-          # echo "comment-body: ${{ steps.tf.outputs.comment-body }}"
+          echo "comment-body:"
           echo "comment-id: ${{ steps.tf.outputs.comment-id }}"
           echo "diff: ${{ steps.tf.outputs.diff }}"
           echo "exitcode: ${{ steps.tf.outputs.exitcode }}"
