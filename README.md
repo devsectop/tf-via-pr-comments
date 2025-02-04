@@ -94,37 +94,37 @@ The following workflows showcase common use cases, while a comprehensive list of
 <table>
   <tr>
     <td>
-      <h3><a href="/.github/examples/pr_push_auth.yaml">#1 view workflow ⤴</a></h3>
-      <h4><a href="/.github/examples/pr_push_auth.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, authentication and cache.</h4>
+      <h4><a href="/.github/examples/pr_push_auth.yaml">#1 example ⤴</a></h4>
+      <a href="/.github/examples/pr_push_auth.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, authentication and cache.
       </br>
     </td>
     <td>
-      <h3><a href="/.github/examples/pr_merge_matrix.yaml">#2 view workflow ⤴</a></h3>
-      <h4><a href="/.github/examples/pr_merge_matrix.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>merge_group</code> (apply) events with OpenTofu in matrix strategy.</h4>
-      </br>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <h3><a href="/.github/examples/pr_push_lint.yaml">#3 view workflow ⤴</a></h3>
-      <h4><a href="/.github/examples/pr_push_lint.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with fmt/validate checks and TFLint.</h4>
-      </br>
-    </td>
-    <td>
-      <h3><a href="/.github/examples/pr_push_stages.yaml">#4 view workflow ⤴</a></h3>
-      <h4><a href="/.github/examples/pr_push_stages.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with conditional jobs based on plan file.</h4>
+      <h4><a href="/.github/examples/pr_merge_matrix.yaml">#2 example ⤴</a></h4>
+      <a href="/.github/examples/pr_merge_matrix.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>merge_group</code> (apply) events with OpenTofu in matrix strategy.
       </br>
     </td>
   </tr>
   <tr>
     <td>
-      <h3><a href="/.github/examples/pr_manual_label.yaml">#5 view workflow ⤴</a></h3>
-      <h4><a href="/.github/examples/pr_manual_label.yaml">Runs on</a> <code>labeled</code> and <code>workflow_dispatch</code> manual events on GitHub Enterprise (GHE) self-hosted runner.</h4>
+      <h4><a href="/.github/examples/pr_push_lint.yaml">#3 example ⤴</a></h4>
+      <a href="/.github/examples/pr_push_lint.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with fmt/validate checks and TFLint.
       </br>
     </td>
     <td>
-      <h3><a href="/.github/examples/schedule_refresh.yaml">#6 view workflow ⤴</a></h3>
-      <h4><a href="/.github/examples/schedule_refresh.yaml">Runs on</a> <code>schedule</code> cron event with <code>-refresh-only</code> to open an issue on configuration drift.</h4>
+      <h4><a href="/.github/examples/pr_push_stages.yaml">#4 example ⤴</a></h4>
+      <a href="/.github/examples/pr_push_stages.yaml">Runs on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with conditional jobs based on plan file.
+      </br>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h4><a href="/.github/examples/pr_manual_label.yaml">#5 example ⤴</a></h4>
+      <a href="/.github/examples/pr_manual_label.yaml">Runs on</a> <code>labeled</code> and <code>workflow_dispatch</code> manual events on GitHub Enterprise (GHE) self-hosted runner.
+      </br>
+    </td>
+    <td>
+      <h4><a href="/.github/examples/schedule_refresh.yaml">#6 example ⤴</a></h4>
+      <a href="/.github/examples/schedule_refresh.yaml">Runs on</a> <code>schedule</code> cron event with <code>-refresh-only</code> to open an issue on configuration drift.
       </br>
     </td>
   </tr>
