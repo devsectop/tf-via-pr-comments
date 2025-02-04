@@ -206,7 +206,12 @@ runs:
 
         # Diff of changes.
         # Filter lines starting with "  # " and save to tf.diff.txt, then prepend diff-specific symbols based on specific keywords.
-        grep '^  # ' tf.console.txt | sed -e 's/^  # \(.* be created\)/+ \1/' -e 's/^  # \(.* be destroyed\)/- \1/' -e 's/^  # \(.* be updated\|.* be replaced\)/! \1/' -e 's/^  # \(.* be read\)/~ \1/' -e 's/^  # \(.*\)/# \1/' > tf.diff.txt || true
+        grep '^  # ' tf.console.txt | sed \
+          -e 's/^  # \(.* be created\)/+ \1/' \
+          -e 's/^  # \(.* be destroyed\)/- \1/' \
+          -e 's/^  # \(.* be updated\|.* be replaced\)/! \1/' \
+          -e 's/^  # \(.* be read\)/~ \1/' \
+          -e 's/^  # \(.*\)/# \1/' > tf.diff.txt || true
 
     - if: ${{ inputs.plan-encrypt != '' && steps.plan.outcome == 'success' }}
       env:
@@ -405,6 +410,14 @@ runs:
             # Post new comment.
             pr_comment=$(gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method POST --field "body=${body}")
             echo "comment_id=$(echo "$pr_comment" | jq --raw-output '.id')" >> "$GITHUB_OUTPUT"
+          fi
+        elif [[ "${{ inputs.comment-pr}}" == "on-change" && "${{ steps.identifier.outputs.pr }}" != "0" ]]; then
+          # Delete previous comment due to no changes.
+          list_comments=$(gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method GET --field per_page=100)
+          bot_comment=$(echo "$list_comments" | jq --raw-output --arg identifier "${{ steps.identifier.outputs.name }}" '.[] | select(.user.type == "Bot") | select(.body | contains($identifier)) | .id' | tail -n 1)
+
+          if [[ -n "$bot_comment" ]]; then
+            gh api /repos/{owner}/{repo}/issues/comments/${bot_comment} --header "$GH_API" --method DELETE
           fi
         fi
 
