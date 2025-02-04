@@ -304,10 +304,6 @@ runs:
         console=$(head --bytes=42000 tf.console.txt)
         if [[ ${#console} -eq 42000 ]]; then console="${console}"$'\n…'; fi
         echo "result<<EORESULTTFVIAPR"$'\n'"$console"$'\n'EORESULTTFVIAPR >> "$GITHUB_OUTPUT"
-        # { echo 'result<<EORESULTTFVIAPR'
-        #   echo "$console"
-        #   echo EORESULTTFVIAPR
-        # } >> "$GITHUB_OUTPUT"
 
         # Parse the tf.console.txt file for the summary.
         summary=$(awk '/^(Error:|Plan:|Apply complete!|No changes.|Success)/ {line=$0} END {if (line) print line; else print "View output."}' tf.console.txt)
@@ -335,10 +331,7 @@ runs:
           # Parse diff of changes, truncated for character limit.
           diff_truncated=$(head --bytes=24000 tf.diff.txt)
           if [[ ${#diff_truncated} -eq 24000 ]]; then diff_truncated="${diff_truncated}"$'\n…'; fi
-          { echo 'diff<<EODIFFTFVIAPR'
-            echo "$diff_truncated"
-            echo EODIFFTFVIAPR
-          } >> "$GITHUB_OUTPUT"
+          echo "diff<<EODIFFTFVIAPR"$'\n'"$diff_truncated"$'\n'EODIFFTFVIAPR >> "$GITHUB_OUTPUT"
 
           diff="
         <details><summary>Diff of ${diff_count} ${diff_change}.</summary>
