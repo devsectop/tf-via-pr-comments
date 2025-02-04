@@ -94,42 +94,36 @@ The following workflows showcase common use cases, while a comprehensive list of
 <table>
   <tr>
     <td>
-      </br>
-      <h3>#1 ⤴</h3>
+      <h3><a href="/.github/examples/pr_push_auth.yaml">#1 ⤴</a></h3>
       <h4><a href="/.github/examples/pr_push_auth.yaml">Run on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with Terraform, authentication and cache.</h4>
       </br>
     </td>
     <td>
-      </br>
-      <h3>#2 ⤴</h3>
+      <h3><a href="/.github/examples/pr_merge_matrix.yaml">#2 ⤴</a></h3>
       <h4><a href="/.github/examples/pr_merge_matrix.yaml">Run on</a> <code>pull_request</code> (plan) and <code>merge_group</code> (apply) events with OpenTofu in matrix strategy.</h4>
       </br>
     </td>
   </tr>
   <tr>
     <td>
-      </br>
-      <h3>#3 ⤴</h3>
+      <h3><a href="/.github/examples/pr_push_lint.yaml">#3 ⤴</a></h3>
       <h4><a href="/.github/examples/pr_push_lint.yaml">Run on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with fmt/validate checks and TFLint.</h4>
       </br>
     </td>
     <td>
-      </br>
-      <h3>#4 ⤴</h3>
+      <h3><a href="/.github/examples/pr_push_stages.yaml">#4 ⤴</a></h3>
       <h4><a href="/.github/examples/pr_push_stages.yaml">Run on</a> <code>pull_request</code> (plan) and <code>push</code> (apply) events with conditional jobs based on plan file.</h4>
       </br>
     </td>
   </tr>
   <tr>
     <td>
-      </br>
-      <h3>#5 ⤴</h3>
+      <h3><a href="/.github/examples/pr_manual_label.yaml">#5 ⤴</a></h3>
       <h4><a href="/.github/examples/pr_manual_label.yaml">Run on</a> <code>labeled</code> and <code>workflow_dispatch</code> manual events on GitHub Enterprise (GHE) self-hosted runner.</h4>
       </br>
     </td>
     <td>
-      </br>
-      <h3>#6 ⤴</h3>
+      <h3><a href="/.github/examples/schedule_refresh.yaml">#6 ⤴</a></h3>
       <h4><a href="/.github/examples/schedule_refresh.yaml">Run on</a> <code>schedule</code> cron event with <code>-refresh-only</code> to open an issue on configuration drift.</h4>
       </br>
     </td>
