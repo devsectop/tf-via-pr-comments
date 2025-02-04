@@ -303,9 +303,9 @@ runs:
         # Parse the tf.console.txt file, truncated for character limit.
         console=$(head --bytes=42000 tf.console.txt)
         if [[ ${#console} -eq 42000 ]]; then console="${console}"$'\n…'; fi
-        { echo 'result<<EOTFVIAPR'
+        { echo 'result<<EORESULTTFVIAPR'
           echo "$console"
-          echo EOTFVIAPR
+          echo EORESULTTFVIAPR
         } >> "$GITHUB_OUTPUT"
 
         # Parse the tf.console.txt file for the summary.
@@ -334,9 +334,9 @@ runs:
           # Parse diff of changes, truncated for character limit.
           diff_truncated=$(head --bytes=24000 tf.diff.txt)
           if [[ ${#diff_truncated} -eq 24000 ]]; then diff_truncated="${diff_truncated}"$'\n…'; fi
-          { echo 'diff<<EOTFVIAPR'
+          { echo 'diff<<EODIFFTFVIAPR'
             echo "$diff_truncated"
-            echo EOTFVIAPR
+            echo EODIFFTFVIAPR
           } >> "$GITHUB_OUTPUT"
 
           diff="
@@ -362,7 +362,7 @@ runs:
         if [[ "$tag_actor" == "true" ]]; then handle="@"; else handle=""; fi
 
         # Collate body content.
-        body=$(cat <<EOTFVIAPR
+        body=$(cat <<EOBODYTFVIAPR
         <!-- placeholder-1 -->
         \`\`\`fish
         ${command}
@@ -383,14 +383,14 @@ runs:
         <!-- placeholder-5 -->
         <!-- ${{ steps.identifier.outputs.name }} -->
         <!-- placeholder-6 -->
-        EOTFVIAPR
+        EOBODYTFVIAPR
         )
 
         # Post output to job summary.
         echo "$body" >> $GITHUB_STEP_SUMMARY
-        { echo 'comment_body<<EOTFVIAPR'
+        { echo 'comment_body<<EOCOMMENTBODYTFVIAPR'
           echo "$body"
-          echo EOTFVIAPR
+          echo EOCOMMENTBODYTFVIAPR
         } >> "$GITHUB_OUTPUT"
 
         # Post PR comment if configured and PR exists.
