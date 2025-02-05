@@ -231,6 +231,7 @@ runs:
       with:
         name: ${{ steps.identifier.outputs.name }}
         path: ${{ format('{0}{1}tfplan', inputs.arg-chdir || inputs.working-directory, (inputs.arg-chdir || inputs.working-directory) && '/' || '') }}
+        retention-days: ${{ inputs.retention-days }}
         overwrite: true
 
     - if: ${{ inputs.command == 'plan' && github.server_url != 'https://github.com' }}
@@ -239,6 +240,7 @@ runs:
       with:
         name: ${{ steps.identifier.outputs.name }}
         path: ${{ format('{0}{1}tfplan', inputs.arg-chdir || inputs.working-directory, (inputs.arg-chdir || inputs.working-directory) && '/' || '') }}
+        retention-days: ${{ inputs.retention-days }}
 
     - if: ${{ inputs.plan-parity == 'true' && steps.download.outcome == 'success' }}
       shell: bash
@@ -493,6 +495,10 @@ inputs:
   plan-parity:
     default: "false"
     description: "Replace the plan file if it matches a newly-generated one to prevent stale apply (e.g., `false`)."
+    required: false
+  retention-days:
+    default: ""
+    description: "Duration after which plan file artifact will expire in days (e.g., '90')."
     required: false
   show-args:
     default: "workspace"
