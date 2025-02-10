@@ -6,6 +6,7 @@ on:
   #   paths: [.github/workflows/tf_tests.yaml, action.yml, tests/**]
   #   types: [opened, reopened, synchronize, closed]
   push:
+    paths: [.github/workflows/tf_tests.yaml, action.yml, tests/**]
     branches: [main]
 
 jobs:
