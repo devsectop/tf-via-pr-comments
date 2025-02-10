@@ -2,9 +2,11 @@
 name: TF Tests
 
 on:
-  pull_request:
-    paths: [.github/workflows/tf_tests.yaml, action.yml, tests/**]
-    types: [opened, reopened, synchronize, closed]
+  # pull_request:
+  #   paths: [.github/workflows/tf_tests.yaml, action.yml, tests/**]
+  #   types: [opened, reopened, synchronize, closed]
+  push:
+    branches: [main]
 
 jobs:
   tests:
