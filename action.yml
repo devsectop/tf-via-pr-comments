@@ -76,6 +76,10 @@ runs:
       run: |
         # Unique identifier.
         # Get PR number using GitHub API for different event triggers.
+        echo github.ref_name=${{ github.ref_name }}
+        echo github.head_ref=${{ github.head_ref }}
+        echo github.ref=${{ github.ref }}
+        echo gh_api=$(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${{ github.ref_name || github.head_ref || github.ref || '0' }}" | jq '.[0].number // 0')
         if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
           # List PRs associated with the commit, then get the PR number from the head ref or the latest PR.
           associated_prs=$(gh api /repos/{owner}/{repo}/commits/${GITHUB_SHA}/pulls --header "$GH_API" --method GET --field per_page=100)
