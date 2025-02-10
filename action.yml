@@ -85,7 +85,11 @@ runs:
           pr_number=$(echo "${GITHUB_REF_NAME}" | sed -n 's/.*pr-\([0-9]*\)-.*/\1/p')
         else
           # Get the PR number from branch name, otherwise fallback on 0 if the PR number is not found.
-          pr_number=$(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${branch}" | jq .[0].number) || ${{ github.event.number || github.event.issue.number || 0 }}
+          echo github.ref_name=${{ github.ref_name }}
+          echo github.head_ref=${{ github.head_ref }}
+          echo github.ref=${{ github.ref }}
+          echo gh_api=$(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${{ github.ref_name || github.head_ref || github.ref || '0' }}" | jq '.[0].number // 0')
+          pr_number=${{ github.event.number || github.event.issue.number }} || $(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${{ github.ref_name || github.head_ref || github.ref || '0' }}" | jq '.[0].number // 0')
         fi
         echo "pr=$pr_number" >> "$GITHUB_OUTPUT"
 
