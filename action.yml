@@ -99,9 +99,9 @@ runs:
 
         # Get the current job ID from the workflow run using different query methods for matrix and regular jobs.
         if [[ "$GH_MATRIX" == "null" ]]; then
-          # For regular jobs, get the ID of the job with the same name as $GITHUB_JOB (lowercase and '-' or '_' replaced with ' ').
+          # For regular jobs, get the ID of the job with the same name as job_id (lowercase and '-' or '_' replaced with ' ').
           # Otherwise, get the ID of the first job in the list as a fallback.
-          job_id=$(echo "$workflow_run" | jq --raw-output '(.jobs[] | select((.name | ascii_downcase | gsub("-|_"; " ")) == (env.GITHUB_JOB | ascii_downcase | gsub("-|_"; " "))) | .id) // .jobs[0].id' | tail -n 1)
+          job_id=$(echo "$workflow_run" | jq --raw-output '(.jobs[] | select((.name | ascii_downcase | gsub("-|_"; " ")) == (${{ github.job }} | ascii_downcase | gsub("-|_"; " "))) | .id) // .jobs[0].id' | tail -n 1)
         else
           # For matrix jobs, join the matrix values with comma separator into a single string and get the ID of the job which contains it.
           matrix=$(echo "$GH_MATRIX" | jq --raw-output 'to_entries | map(.value) | join(", ")')
@@ -227,7 +227,7 @@ runs:
 
     - if: ${{ inputs.command == 'plan' && github.server_url == 'https://github.com' }}
       id: upload
-      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
       with:
         name: ${{ steps.identifier.outputs.name }}
         path: ${{ format('{0}{1}tfplan', inputs.arg-chdir || inputs.working-directory, (inputs.arg-chdir || inputs.working-directory) && '/' || '') }}
