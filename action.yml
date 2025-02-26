@@ -78,14 +78,14 @@ runs:
         # Get PR number using GitHub API for different event triggers.
         if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
           # List PRs associated with the commit, then get the PR number from the head ref or the latest PR.
-          associated_prs=$(gh api /repos/{owner}/{repo}/commits/${GITHUB_SHA}/pulls --header "$GH_API" --method GET --field per_page=100)
-          pr_number=$(echo "$associated_prs" | jq --raw-output '(.[] | select(.head.ref == env.GITHUB_REF_NAME) | .number) // .[0].number // 0')
+          associated_prs=$(gh api /repos/${{ github.repository }}/commits/${{ github.event.pull_request.head.sha || github.sha }}/pulls --header "$GH_API" --method GET --field per_page=100)
+          pr_number=$(echo "$associated_prs" | jq --raw-output '(.[] | select(.head.ref == ${{ github.ref_name }}) | .number) // .[0].number // 0')
         elif [[ "$GITHUB_EVENT_NAME" == "merge_group" ]]; then
           # Get the PR number by parsing the ref name.
-          pr_number=$(echo "${GITHUB_REF_NAME}" | sed -n 's/.*pr-\([0-9]*\)-.*/\1/p')
+          pr_number=$(echo "${{ github.ref_name }}" | sed -n 's/.*pr-\([0-9]*\)-.*/\1/p')
         else
           # Get the PR number from branch name, otherwise fallback on 0 if the PR number is not found.
-          pr_number=${{ github.event.number || github.event.issue.number }} || $(gh api /repos/{owner}/{repo}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${{ github.ref_name || github.head_ref || github.ref || '0' }}" | jq '.[0].number // 0')
+          pr_number=${{ github.event.number || github.event.issue.number }} || $(gh api /repos/${{ github.repository }}/pulls --header "$GH_API" --method GET --field per_page=100 --field head="${{ github.ref_name || github.head_ref || github.ref || '0' }}" | jq '.[0].number // 0')
         fi
         echo "pr=$pr_number" >> "$GITHUB_OUTPUT"
 
@@ -95,7 +95,7 @@ runs:
         echo "name=${{ inputs.tool }}-${pr_number}-${identifier}.tfplan" >> "$GITHUB_OUTPUT"
 
         # List jobs from the current workflow run.
-        workflow_run=$(gh api /repos/{owner}/{repo}/actions/runs/${GITHUB_RUN_ID}/attempts/${GITHUB_RUN_ATTEMPT}/jobs --header "$GH_API" --method GET --field per_page=100)
+        workflow_run=$(gh api /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}/jobs --header "$GH_API" --method GET --field per_page=100)
 
         # Get the current job ID from the workflow run using different query methods for matrix and regular jobs.
         if [[ "$GH_MATRIX" == "null" ]]; then
@@ -159,9 +159,9 @@ runs:
       run: |
         # Label PR.
         # If the label does not exist, create it before adding it to the PR in the format 'tf:${{ inputs.command }}'.
-        gh api /repos/{owner}/{repo}/labels/tf:${{ inputs.command }} --header "$GH_API" --method GET || \
-          gh api /repos/{owner}/{repo}/labels --header "$GH_API" --method POST --field "name=tf:${{ inputs.command }}" --field "description=Pull requests that ${{ inputs.command }} TF code." --field "color=5C4EE5"
-        gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/labels --header "$GH_API" --method POST --field "labels[]=tf:${{ inputs.command }}"
+        gh api /repos/${{ github.repository }}/labels/tf:${{ inputs.command }} --header "$GH_API" --method GET || \
+          gh api /repos/${{ github.repository }}/labels --header "$GH_API" --method POST --field "name=tf:${{ inputs.command }}" --field "description=Pull requests that ${{ inputs.command }} TF code." --field "color=5C4EE5"
+        gh api /repos/${{ github.repository }}/issues/${{ steps.identifier.outputs.pr }}/labels --header "$GH_API" --method POST --field "labels[]=tf:${{ inputs.command }}"
 
     - if: ${{ inputs.command == 'plan' }}
       id: plan
@@ -179,8 +179,8 @@ runs:
       run: |
         # Download plan file.
         # Get the artifact ID of the latest matching plan files for download.
-        artifact_id=$(gh api /repos/{owner}/{repo}/actions/artifacts --header "$GH_API" --method GET --field "name=${{ steps.identifier.outputs.name }}" --jq '.artifacts[0].id')
-        gh api /repos/{owner}/{repo}/actions/artifacts/${artifact_id}/zip --header "$GH_API" --method GET > "${{ steps.identifier.outputs.name }}.zip"
+        artifact_id=$(gh api /repos/${{ github.repository }}/actions/artifacts --header "$GH_API" --method GET --field "name=${{ steps.identifier.outputs.name }}" --jq '.artifacts[0].id')
+        gh api /repos/${{ github.repository }}/actions/artifacts/${artifact_id}/zip --header "$GH_API" --method GET > "${{ steps.identifier.outputs.name }}.zip"
 
         # Unzip the plan file to the working directory, then clean up the zip file.
         unzip "${{ steps.identifier.outputs.name }}.zip" -d "${{ inputs.arg-chdir || inputs.working-directory }}"
@@ -227,7 +227,7 @@ runs:
 
     - if: ${{ inputs.command == 'plan' && github.server_url == 'https://github.com' }}
       id: upload
-      uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
       with:
         name: ${{ steps.identifier.outputs.name }}
         path: ${{ format('{0}{1}tfplan', inputs.arg-chdir || inputs.working-directory, (inputs.arg-chdir || inputs.working-directory) && '/' || '') }}
@@ -316,7 +316,7 @@ runs:
         if [[ "${{ steps.format.outcome }}" == "failure" ]]; then syntax="diff"; fi
 
         # Add summary to the job status.
-        check_run=$(gh api /repos/{owner}/{repo}/check-runs/${{ steps.identifier.outputs.job }} --header "$GH_API" --method PATCH --field "output[title]=${summary}" --field "output[summary]=${summary}")
+        check_run=$(gh api /repos/${{ github.repository }}/check-runs/${{ steps.identifier.outputs.job }} --header "$GH_API" --method PATCH --field "output[title]=${summary}" --field "output[summary]=${summary}")
 
         # From check_run, echo html_url.
         check_url=$(echo "$check_run" | jq --raw-output '.html_url')
@@ -369,7 +369,7 @@ runs:
         <details><summary>${summary}</br>
 
         <!-- placeholder-4 -->
-        ###### By ${handle}${GITHUB_TRIGGERING_ACTOR} at ${{ github.event.pull_request.updated_at || github.event.comment.created_at || github.event.head_commit.timestamp || github.event.merge_group.head_commit.timestamp }} [(view log)](${run_url}).
+        ###### By ${handle}${{ github.triggering_actor }} at ${{ github.event.pull_request.updated_at || github.event.comment.created_at || github.event.head_commit.timestamp || github.event.merge_group.head_commit.timestamp }} [(view log)](${run_url}).
         </summary>
 
         \`\`\`${syntax}
@@ -389,32 +389,32 @@ runs:
         # Post PR comment if configured and PR exists.
         if [[ "$create_comment" == "true" && "${{ steps.identifier.outputs.pr }}" != "0" ]]; then
           # Check if the PR contains a bot comment with the same identifier.
-          list_comments=$(gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method GET --field per_page=100)
+          list_comments=$(gh api /repos/${{ github.repository }}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method GET --field per_page=100)
           bot_comment=$(echo "$list_comments" | jq --raw-output --arg identifier "${{ steps.identifier.outputs.name }}" '.[] | select(.user.type == "Bot") | select(.body | contains($identifier)) | .id' | tail -n 1)
 
           if [[ -n "$bot_comment" ]]; then
             if [[ "${{ inputs.comment-method }}" == "recreate" ]]; then
               # Delete previous comment before posting a new one.
-              gh api /repos/{owner}/{repo}/issues/comments/${bot_comment} --header "$GH_API" --method DELETE
-              pr_comment=$(gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method POST --field "body=${body}")
+              gh api /repos/${{ github.repository }}/issues/comments/${bot_comment} --header "$GH_API" --method DELETE
+              pr_comment=$(gh api /repos/${{ github.repository }}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method POST --field "body=${body}")
               echo "comment_id=$(echo "$pr_comment" | jq --raw-output '.id')" >> "$GITHUB_OUTPUT"
             elif [[ "${{ inputs.comment-method }}" == "update" ]]; then
               # Update existing comment.
-              pr_comment=$(gh api /repos/{owner}/{repo}/issues/comments/${bot_comment} --header "$GH_API" --method PATCH --field "body=${body}")
+              pr_comment=$(gh api /repos/${{ github.repository }}/issues/comments/${bot_comment} --header "$GH_API" --method PATCH --field "body=${body}")
               echo "comment_id=$(echo "$pr_comment" | jq --raw-output '.id')" >> "$GITHUB_OUTPUT"
             fi
           else
             # Post new comment.
-            pr_comment=$(gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method POST --field "body=${body}")
+            pr_comment=$(gh api /repos/${{ github.repository }}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method POST --field "body=${body}")
             echo "comment_id=$(echo "$pr_comment" | jq --raw-output '.id')" >> "$GITHUB_OUTPUT"
           fi
-        elif [[ "${{ inputs.comment-pr}}" == "on-change" && "${{ steps.identifier.outputs.pr }}" != "0" ]]; then
+        elif [[ "${{ inputs.comment-pr }}" == "on-change" && "${{ steps.identifier.outputs.pr }}" != "0" ]]; then
           # Delete previous comment due to no changes.
-          list_comments=$(gh api /repos/{owner}/{repo}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method GET --field per_page=100)
+          list_comments=$(gh api /repos/${{ github.repository }}/issues/${{ steps.identifier.outputs.pr }}/comments --header "$GH_API" --method GET --field per_page=100)
           bot_comment=$(echo "$list_comments" | jq --raw-output --arg identifier "${{ steps.identifier.outputs.name }}" '.[] | select(.user.type == "Bot") | select(.body | contains($identifier)) | .id' | tail -n 1)
 
           if [[ -n "$bot_comment" ]]; then
-            gh api /repos/{owner}/{repo}/issues/comments/${bot_comment} --header "$GH_API" --method DELETE
+            gh api /repos/${{ github.repository }}/issues/comments/${bot_comment} --header "$GH_API" --method DELETE
           fi
         fi
 
